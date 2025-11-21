@@ -462,6 +462,212 @@
       }
     }
 
+    /* Instagram-style Memory Feed */
+    .memory-feed {
+      max-width: 600px;
+      margin: 2rem auto;
+      display: grid;
+      gap: 2rem;
+      padding-bottom: 2rem;
+    }
+
+    .instagram-post {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid rgba(255, 154, 200, 0.2);
+    }
+
+    .instagram-post:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(255, 154, 200, 0.3);
+    }
+
+    .post-header {
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .post-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .post-username {
+      font-weight: 600;
+      color: #4c2b57;
+      font-size: 0.95rem;
+    }
+
+    .post-date {
+      font-size: 0.85rem;
+      color: #999;
+      margin-left: auto;
+    }
+
+    .post-image-container {
+      width: 100%;
+      aspect-ratio: 1;
+      overflow: hidden;
+      background: #f0f0f0;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .post-image-container img,
+    .post-image-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .post-caption {
+      padding: 1rem;
+      color: #4c2b57;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .post-caption strong {
+      color: #6d2d7c;
+      font-weight: 600;
+    }
+
+    .post-actions {
+      padding: 0.75rem 1rem;
+      display: flex;
+      gap: 1rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .post-action-btn {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .post-action-btn:hover {
+      transform: scale(1.2);
+    }
+
+    /* Add Memory Button */
+    .add-memory-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--gradient);
+      border: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(255, 154, 200, 0.4);
+      z-index: 50;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .add-memory-btn:hover {
+      transform: scale(1.1) rotate(90deg);
+      box-shadow: 0 6px 30px rgba(255, 154, 200, 0.6);
+    }
+
+    /* Add Memory Modal */
+    .add-memory-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(36, 17, 52, 0.88);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .add-memory-modal.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .add-memory-content {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 30px;
+      padding: 2.5rem;
+      max-width: 500px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 40px rgba(255,154,200,0.3);
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+
+    .add-memory-modal.active .add-memory-content {
+      transform: scale(1);
+    }
+
+    .add-memory-form input[type="text"],
+    .add-memory-form input[type="file"],
+    .add-memory-form textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border-radius: 12px;
+      border: 2px solid rgba(255, 154, 200, 0.3);
+      font-size: 1rem;
+      font-family: inherit;
+      margin-bottom: 1rem;
+      box-sizing: border-box;
+    }
+
+    .add-memory-form input[type="file"] {
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .add-memory-form label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #6d2d7c;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .add-memory-form input:focus,
+    .add-memory-form textarea:focus {
+      outline: none;
+      border-color: var(--pink);
+      box-shadow: 0 0 0 3px rgba(255, 154, 200, 0.2);
+    }
+
+    .add-memory-form textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
     .timeline {
       display: grid;
       gap: 2rem;
@@ -936,9 +1142,46 @@
     <div class="balloon pink" style="top: 15%; left: 5%;"></div>
     <div class="balloon lavender" style="top: 20%; right: 8%;"></div>
     <section>
-    <h2 class="section-title">📸 Memory Timeline 📸</h2>
-    <div class="timeline">
-      <article class="memory-card" data-type="image" data-media="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80">
+    <h2 class="section-title">📸 Memory Feed 📸</h2>
+    <div class="memory-feed" id="memoryFeed">
+      <!-- Memories will be dynamically loaded here -->
+    </div>
+    <button class="add-memory-btn" id="addMemoryBtn" title="Add New Memory">➕</button>
+
+    <!-- Add Memory Modal -->
+    <div class="add-memory-modal" id="addMemoryModal">
+      <div class="add-memory-content">
+        <h3 style="text-align: center; color: #6d2d7c; margin-bottom: 1.5rem; font-size: 1.8rem;">✨ Add New Memory ✨</h3>
+        <form class="add-memory-form" id="addMemoryForm">
+          <label style="display: block; margin-bottom: 0.5rem; color: #6d2d7c; font-weight: 600;">Choose or Upload Image 📷</label>
+          <input type="file" id="memoryImageFile" accept="image/*" style="margin-bottom: 0.5rem;" />
+          <div style="text-align: center; margin: 0.5rem 0; color: #999; font-size: 0.9rem;">OR</div>
+          <input type="text" id="memoryImageUrl" placeholder="Paste image URL here (optional)" />
+          <div id="imagePreview" style="margin-top: 1rem; display: none;">
+            <img id="previewImg" src="" alt="Preview" style="max-width: 100%; max-height: 200px; border-radius: 12px; border: 2px solid rgba(255, 154, 200, 0.3);" />
+          </div>
+          <input type="text" id="memoryUsername" placeholder="Username (e.g., Birthday Girl) 👤" value="Birthday Girl" required style="margin-top: 1rem;" />
+          <textarea id="memoryCaption" placeholder="Write your memory caption here... 💭" required></textarea>
+          <div style="display: flex; gap: 1rem;">
+            <button type="submit" class="btn" style="flex: 1;">Add Memory ✨</button>
+            <button type="button" class="btn" id="closeAddMemoryModal" style="flex: 1; background: rgba(255, 255, 255, 0.9); color: #6d2e75;">Cancel</button>
+          </div>
+        </form>
+        <div style="margin-top: 1rem; padding: 1rem; background: rgba(255, 154, 200, 0.1); border-radius: 12px; font-size: 0.9rem; color: #6d2d7c;">
+          <strong>💡 Easy Image Upload:</strong>
+          <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+            <li>Click "Choose File" to select from your device</li>
+            <li>Or upload to <a href="https://imgur.com" target="_blank">Imgur</a> / <a href="https://imgbb.com" target="_blank">ImgBB</a> and paste URL</li>
+            <li>Image will be converted to URL automatically</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    </section>
+  </div>
+
+  <!-- MESSAGES PAGE -->
+  <div id="messages" class="page">
         <div class="memory-media">
           <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80" alt="Memory 2018" />
           <span class="sticker">2018</span>
@@ -977,17 +1220,6 @@
       </article>
     </div>
 
-    <div class="slideshow" aria-label="Animated scrapbook slideshow">
-      <img class="active" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80" alt="Laughing together" />
-      <img src="https://images.unsplash.com/photo-1503882782946-cdcb402031fd?auto=format&fit=crop&w=1200&q=80" alt="Travel memory" />
-      <img src="https://images.unsplash.com/photo-1443916568596-df5a58c445e9?auto=format&fit=crop&w=1200&q=80" alt="Celebration night" />
-    </div>
-
-    <div class="collage-grid" aria-label="Collage grid">
-      <figure><img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80" alt="Collage 1" /></figure>
-      <figure><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80" alt="Collage 2" /></figure>
-      <figure><img src="https://images.unsplash.com/photo-1503882782946-cdcb402031fd?auto=format&fit=crop&w=900&q=80" alt="Collage 3" /></figure>
-    </div>
     </section>
   </div>
 
@@ -1280,10 +1512,12 @@
       setTimeout(() => sparkle.remove(), 4000);
     }
 
-    // Add sparkles on hover over birthday elements
-    document.querySelectorAll('.btn, .memory-card, .cake, .flap-card button').forEach(el => {
-      el.addEventListener('mouseenter', (e) => {
-        const rect = el.getBoundingClientRect();
+    // Add sparkles on hover over birthday elements (dynamic delegation for Instagram posts)
+    document.addEventListener('mouseenter', (e) => {
+      const target = e.target.closest('.btn, .memory-card, .cake, .flap-card button, .instagram-post, .post-action-btn');
+      if (target && !target.dataset.sparkled) {
+        target.dataset.sparkled = 'true';
+        const rect = target.getBoundingClientRect();
         for (let i = 0; i < 3; i++) {
           setTimeout(() => {
             createSparkle(
@@ -1292,8 +1526,9 @@
             );
           }, i * 100);
         }
-      });
-    });
+        setTimeout(() => delete target.dataset.sparkled, 1000);
+      }
+    }, true);
 
     // hero confetti sprinkles
     const confettiSplash = document.querySelector('.confetti-splash');
@@ -1368,14 +1603,320 @@
       }, 300);
     }
 
-    document.querySelectorAll('.memory-card').forEach(card => {
-      card.style.cursor = 'pointer';
-      card.addEventListener('click', () => {
-        const media = card.dataset.media;
-        const type = card.dataset.type;
-        openLightbox(media, type);
+    // Memory Feed System - Easy Instagram-style posts
+    const memoriesData = [
+      {
+        image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80',
+        username: 'Birthday Girl',
+        avatar: '🎂',
+        caption: 'First College Adventure ✨ Remember how we got lost on day one and discovered the coziest cafe instead? Best accidental tradition ever. 💕'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80',
+        username: 'Birthday Girl',
+        avatar: '🎂',
+        caption: 'Starry Rooftop Sessions ⭐ Blankets, fairy lights, and unstoppable dream-building. The perfect ritual. 🌙✨'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1547036967-23d11aacaee0?auto=format&fit=crop&w=900&q=80',
+        username: 'Birthday Girl',
+        avatar: '🎂',
+        caption: 'Sholingur 🏛️ Our first temple visit together! The peaceful vibes and beautiful architecture made it unforgettable. 🙏✨'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=900&q=80',
+        username: 'Birthday Girl',
+        avatar: '🎂',
+        caption: 'Vellore 🏰 Exploring the historic fort and discovering hidden stories together. What an adventure! 📸💕'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=900&q=80',
+        username: 'Birthday Girl',
+        avatar: '🎂',
+        caption: 'Theerthagiri Murugan Temple ⛩️ The divine atmosphere and stunning architecture left us in awe. Beautiful memories! 🌟'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=900&q=80',
+        username: 'Birthday Girl',
+        avatar: '🎂',
+        caption: 'Thiruthani 🙏 Another spiritual journey, another beautiful memory created. The climb was worth every step! 🏔️'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=900&q=80',
+        username: 'Birthday Girl',
+        avatar: '🎂',
+        caption: 'Thirupathi 🕉️ Our pilgrimage together was filled with prayers, peace, and precious moments. Truly blessed! ✨'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=900&q=80',
+        username: 'Birthday Girl',
+        avatar: '🎂',
+        caption: 'Vadapalani 🏪 Shopping spree and street food adventures! The best kind of day out together! 🛍️🍜'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=900&q=80',
+        username: 'Birthday Girl',
+        avatar: '🎂',
+        caption: 'Express Avenue Mall 🏬 Endless shopping, food court feasts, and fun times! Shopping with you is always the best! 💕🛒'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80',
+        username: 'Birthday Girl',
+        avatar: '🎂',
+        caption: 'Bessy Beach 🌊 Sunset walks, sand between our toes, and endless conversations. Beach days with you are pure magic! 🌅'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80',
+        username: 'Birthday Girl',
+        avatar: '🎂',
+        caption: 'Marina Beach 🏖️ The longest beach walk, street food, and unforgettable memories! Classic Chennai vibes! 🌊✨'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1528607929212-2636ec44253e?auto=format&fit=crop&w=900&q=80',
+        username: 'Birthday Girl',
+        avatar: '🎂',
+        caption: 'KFC 🍗 Our go-to comfort food place! Crispy chicken, unlimited laughs, and the best conversations. Foodie memories! 🍟'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=900&q=80',
+        username: 'Birthday Girl',
+        avatar: '🎂',
+        caption: 'Virudhachalam 🏛️ Another temple, another beautiful adventure. The spiritual journey continues! 🙏💫'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=900&q=80',
+        username: 'Birthday Girl',
+        avatar: '🎂',
+        caption: 'Kanchipuram 🏛️ The city of temples! Exploring history, architecture, and creating memories one temple at a time! 📸'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80',
+        username: 'Birthday Girl',
+        avatar: '🎂',
+        caption: 'Kolivakkam 🌊 Beach vibes, fresh air, and the perfect escape from the city. Beach day perfection! 🏖️💙'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=900&q=80',
+        username: 'Birthday Girl',
+        avatar: '🎂',
+        caption: 'Pondicherry 🌴 French vibes, beautiful promenades, and cafe hopping! Our coastal adventure was everything! ☕💕'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=900&q=80',
+        username: 'Birthday Girl',
+        avatar: '🎂',
+        caption: 'Kerala 🌿 Backwaters, boat rides, and lush greenery! Our Kerala trip was a dream come true. So many memories! 🚤💚'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=900&q=80',
+        username: 'Birthday Girl',
+        avatar: '🎂',
+        caption: 'Movie Theaters 🎬 Countless movie nights, shared popcorn, and discussing plots! Our cinema adventures are the best! 🍿🎥'
+      }
+    ];
+
+    function renderMemories() {
+      const feed = document.getElementById('memoryFeed');
+      feed.innerHTML = '';
+      
+      memoriesData.forEach((memory, index) => {
+        const post = document.createElement('div');
+        post.className = 'instagram-post';
+        post.innerHTML = `
+          <div class="post-header">
+            <div class="post-avatar">${memory.avatar || '🎂'}</div>
+            <div>
+              <div class="post-username">${memory.username || 'Birthday Girl'}</div>
+            </div>
+          </div>
+          <div class="post-image-container" data-image="${memory.image}" data-index="${index}">
+            <img src="${memory.image}" alt="Memory ${index + 1}" loading="lazy" />
+          </div>
+          <div class="post-actions">
+            <button class="post-action-btn" title="Like">❤️</button>
+            <button class="post-action-btn" title="Comment">💬</button>
+            <button class="post-action-btn" title="Share">📤</button>
+          </div>
+          <div class="post-caption">
+            <strong>${memory.username || 'Birthday Girl'}</strong> ${memory.caption || ''}
+          </div>
+        `;
+        feed.appendChild(post);
+      });
+
+      // Add click handlers for images
+      document.querySelectorAll('.post-image-container').forEach(container => {
+        container.style.cursor = 'pointer';
+        container.addEventListener('click', () => {
+          const image = container.dataset.image;
+          openLightbox(image, 'image');
+        });
+      });
+    }
+
+    // Add Memory Modal
+    const addMemoryBtn = document.getElementById('addMemoryBtn');
+    const addMemoryModal = document.getElementById('addMemoryModal');
+    const addMemoryForm = document.getElementById('addMemoryForm');
+    const closeAddMemoryModal = document.getElementById('closeAddMemoryModal');
+
+    addMemoryBtn.addEventListener('click', () => {
+      addMemoryModal.style.display = 'flex';
+      requestAnimationFrame(() => {
+        addMemoryModal.classList.add('active');
       });
     });
+
+    closeAddMemoryModal.addEventListener('click', () => {
+      addMemoryModal.classList.remove('active');
+      setTimeout(() => {
+        addMemoryModal.style.display = 'none';
+        addMemoryForm.reset();
+        imagePreview.style.display = 'none';
+        selectedImageDataUrl = null;
+      }, 300);
+    });
+
+    addMemoryModal.addEventListener('click', (e) => {
+      if (e.target === addMemoryModal) {
+        addMemoryModal.classList.remove('active');
+        setTimeout(() => {
+          addMemoryModal.style.display = 'none';
+          addMemoryForm.reset();
+          imagePreview.style.display = 'none';
+          selectedImageDataUrl = null;
+        }, 300);
+      }
+    });
+
+    // Image file upload handler
+    const memoryImageFile = document.getElementById('memoryImageFile');
+    const imagePreview = document.getElementById('imagePreview');
+    const previewImg = document.getElementById('previewImg');
+    let selectedImageDataUrl = null;
+
+    memoryImageFile.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        // Clear URL input when file is selected
+        document.getElementById('memoryImageUrl').value = '';
+        
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          selectedImageDataUrl = e.target.result;
+          previewImg.src = selectedImageDataUrl;
+          imagePreview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      } else {
+        imagePreview.style.display = 'none';
+        selectedImageDataUrl = null;
+      }
+    });
+
+    // URL input handler - clear file when URL is entered
+    document.getElementById('memoryImageUrl').addEventListener('input', (e) => {
+      if (e.target.value.trim()) {
+        memoryImageFile.value = '';
+        imagePreview.style.display = 'none';
+        selectedImageDataUrl = null;
+      }
+    });
+
+    addMemoryForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      let imageUrl = document.getElementById('memoryImageUrl').value.trim();
+      const username = document.getElementById('memoryUsername').value.trim() || 'Birthday Girl';
+      const caption = document.getElementById('memoryCaption').value.trim();
+
+      // Use file data URL if file was selected, otherwise use URL
+      if (selectedImageDataUrl) {
+        imageUrl = selectedImageDataUrl;
+      }
+
+      if (imageUrl && caption) {
+        // Add new memory to the array
+        memoriesData.unshift({
+          image: imageUrl,
+          username: username,
+          avatar: '🎂',
+          caption: caption
+        });
+
+        // Re-render memories
+        renderMemories();
+
+        // Close modal
+        addMemoryModal.classList.remove('active');
+        setTimeout(() => {
+          addMemoryModal.style.display = 'none';
+          addMemoryForm.reset();
+          imagePreview.style.display = 'none';
+          selectedImageDataUrl = null;
+          
+          // Scroll to top to see new post
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 300);
+
+        // Show success message
+        const successMsg = document.createElement('div');
+        successMsg.textContent = '✨ Memory added successfully!';
+        successMsg.style.cssText = `
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: var(--gradient);
+          padding: 1.5rem 2.5rem;
+          border-radius: 25px;
+          font-size: 1.2rem;
+          font-weight: bold;
+          color: #5d2e75;
+          z-index: 2000;
+          box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+          animation: popIn 0.5s ease-out;
+        `;
+        document.body.appendChild(successMsg);
+        setTimeout(() => {
+          successMsg.style.animation = 'popOut 0.5s ease-in forwards';
+          setTimeout(() => successMsg.remove(), 500);
+        }, 2000);
+      }
+    });
+
+    // Initialize memory feed when page loads
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        if (typeof renderMemories === 'function') {
+          renderMemories();
+        }
+      });
+    } else {
+      // DOM already loaded
+      if (typeof renderMemories === 'function') {
+        renderMemories();
+      }
+    }
+
+    // Override showPage to render memories when memories page is shown
+    const originalShowPageFunction = window.showPage;
+    window.showPage = function(pageId) {
+      // Call original function first
+      if (originalShowPageFunction) {
+        originalShowPageFunction(pageId);
+      }
+      
+      // Re-render memories when memories page is shown
+      if (pageId === 'memories') {
+        setTimeout(() => {
+          if (typeof renderMemories === 'function') {
+            renderMemories();
+          }
+        }, 100);
+      }
+    };
+
+    // Old memory card click handlers (removed - now using new system)
 
     document.getElementById('closeLightbox').addEventListener('click', closeLightbox);
     lightbox.addEventListener('click', (e) => {
@@ -1395,15 +1936,6 @@
     document.querySelectorAll('.flap-card').forEach(flap => {
       flap.addEventListener('click', () => flap.classList.toggle('open'));
     });
-
-    // Slide-show
-    const slides = document.querySelectorAll('.slideshow img');
-    let currentSlide = 0;
-    setInterval(() => {
-      slides[currentSlide].classList.remove('active');
-      currentSlide = (currentSlide + 1) % slides.length;
-      slides[currentSlide].classList.add('active');
-    }, 4500);
 
     // Wish modal styling
     const wishModalStyle = document.createElement('style');
