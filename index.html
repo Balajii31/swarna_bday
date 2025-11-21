@@ -3,1113 +3,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Birthday Scrapbook Surprise</title>
-  <style>
-    :root {
-      --pink: #ff9ac8;
-      --lavender: #c9a7ff;
-      --mint: #a9f5d0;
-      --soft-yellow: #fff2b2;
-      --sky: #b5e3ff;
-      --deep-purple: #8b6bff;
-      --soft-shadow: 0 20px 45px rgba(123, 71, 179, 0.25);
-      --card-radius: 22px;
-      --gradient: linear-gradient(135deg, rgba(255, 154, 200, 0.85), rgba(181, 227, 255, 0.9));
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: 'Poppins', 'Segoe UI', sans-serif;
-      background: linear-gradient(180deg, #fff7fb 0%, #eef7ff 40%, #ffeef8 100%);
-      color: #4c2b57;
-      overflow-x: hidden;
-    }
-
-    /* Multi-page system */
-    .page {
-      display: none;
-      min-height: 100vh;
-      padding-top: 80px;
-      opacity: 0;
-      transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-      transform: translateY(20px);
-    }
-
-    .page.active {
-      display: block;
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .page-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
-
-    .confetti-splash {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 5;
-    }
-
-    canvas#celebrationCanvas {
-      position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 999;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-
-    .stars-container {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 2;
-      overflow: hidden;
-    }
-
-    .star {
-      position: absolute;
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 1.5rem;
-      animation: twinkle 3s ease-in-out infinite;
-      text-shadow: 0 0 10px rgba(255, 154, 200, 0.8), 0 0 20px rgba(201, 167, 255, 0.6);
-    }
-
-    @keyframes twinkle {
-      0%, 100% {
-        opacity: 0.3;
-        transform: scale(0.8);
-      }
-      50% {
-        opacity: 1;
-        transform: scale(1.2);
-      }
-    }
-
-    .star-sparkle {
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      background: white;
-      border-radius: 50%;
-      box-shadow: 0 0 6px rgba(255, 154, 200, 0.9), 0 0 12px rgba(201, 167, 255, 0.7);
-      animation: sparkleFloat 4s ease-in-out infinite;
-    }
-
-    @keyframes sparkleFloat {
-      0% {
-        transform: translateY(0) scale(0);
-        opacity: 0;
-      }
-      50% {
-        transform: translateY(-20px) scale(1);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-40px) scale(0);
-        opacity: 0;
-      }
-    }
-
-    header.hero {
-      position: relative;
-      min-height: calc(100vh - 80px);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 6rem 2rem 4rem;
-      text-align: center;
-      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.9), rgba(255, 220, 246, 0.7));
-      overflow: hidden;
-    }
-
-    /* Birthday decorations - Balloons */
-    .balloon {
-      position: absolute;
-      width: 50px;
-      height: 70px;
-      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-      animation: float 6s ease-in-out infinite;
-      z-index: 1;
-    }
-
-    .balloon::after {
-      content: '';
-      position: absolute;
-      bottom: -30px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 2px;
-      height: 50px;
-      background: rgba(0, 0, 0, 0.2);
-    }
-
-    @keyframes float {
-      0%, 100% {
-        transform: translateY(0) translateX(0);
-      }
-      50% {
-        transform: translateY(-20px) translateX(10px);
-      }
-    }
-
-    .balloon.pink {
-      background: linear-gradient(135deg, var(--pink), #ff6bb3);
-      left: 10%;
-      top: 20%;
-      animation-delay: 0s;
-    }
-
-    .balloon.lavender {
-      background: linear-gradient(135deg, var(--lavender), #a87eff);
-      right: 15%;
-      top: 30%;
-      animation-delay: 1s;
-    }
-
-    .balloon.mint {
-      background: linear-gradient(135deg, var(--mint), #7fffc4);
-      left: 20%;
-      bottom: 25%;
-      animation-delay: 2s;
-    }
-
-    .balloon.yellow {
-      background: linear-gradient(135deg, var(--soft-yellow), #ffeb80);
-      right: 10%;
-      bottom: 20%;
-      animation-delay: 1.5s;
-    }
-
-    /* Streamers */
-    .streamer {
-      position: absolute;
-      width: 4px;
-      height: 100vh;
-      background: linear-gradient(to bottom, var(--pink), var(--lavender), var(--mint));
-      animation: streamerSway 3s ease-in-out infinite;
-      top: 0;
-      z-index: 1;
-    }
-
-    @keyframes streamerSway {
-      0%, 100% {
-        transform: rotate(-2deg);
-      }
-      50% {
-        transform: rotate(2deg);
-      }
-    }
-
-    .streamer.left {
-      left: 5%;
-      animation-delay: 0s;
-    }
-
-    .streamer.right {
-      right: 5%;
-      animation-delay: 1s;
-    }
-
-    /* Party hats */
-    .party-hat {
-      position: absolute;
-      font-size: 2.5rem;
-      animation: hatBounce 2s ease-in-out infinite;
-      z-index: 1;
-    }
-
-    @keyframes hatBounce {
-      0%, 100% {
-        transform: translateY(0) rotate(0deg);
-      }
-      50% {
-        transform: translateY(-10px) rotate(5deg);
-      }
-    }
-
-    /* Gifts */
-    .gift-box {
-      position: absolute;
-      width: 60px;
-      height: 60px;
-      background: var(--pink);
-      border: 3px solid rgba(255, 255, 255, 0.8);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      animation: giftShake 3s ease-in-out infinite;
-      cursor: pointer;
-      z-index: 1;
-    }
-
-    .gift-box::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 30%;
-      background: var(--lavender);
-    }
-
-    .gift-box::after {
-      content: '🎁';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 1.5rem;
-    }
-
-    @keyframes giftShake {
-      0%, 100% {
-        transform: rotate(0deg);
-      }
-      25% {
-        transform: rotate(-5deg);
-      }
-      75% {
-        transform: rotate(5deg);
-      }
-    }
-
-    .gift-box:hover {
-      transform: scale(1.2);
-      animation-play-state: paused;
-    }
-
-    .nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      -webkit-backdrop-filter: blur(12px);
-      backdrop-filter: blur(12px);
-      background: rgba(255, 255, 255, 0.9);
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      padding: 1rem 2rem;
-      z-index: 100;
-      box-shadow: 0 10px 30px rgba(188, 160, 255, 0.2);
-    }
-
-    .nav a {
-      text-decoration: none;
-      color: #7f3d84;
-      font-weight: 600;
-      border-bottom: 3px solid transparent;
-      padding-bottom: 0.2rem;
-      transition: all 0.3s ease;
-      position: relative;
-      cursor: pointer;
-    }
-
-    .nav a:hover {
-      border-bottom-color: var(--lavender);
-      color: var(--deep-purple);
-      transform: translateY(-2px);
-    }
-
-    .nav a.active {
-      border-bottom-color: var(--deep-purple);
-      color: var(--deep-purple);
-    }
-
-      .nav a::before {
-      content: '✨';
-      position: absolute;
-      left: -1.5rem;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .nav a.active::before {
-      opacity: 1;
-    }
-
-    @media (max-width: 768px) {
-      .nav a::before {
-        display: none;
-      }
-      
-      .balloon, .party-hat, .gift-box {
-        display: none;
-      }
-    }
-
-    .hero h1 {
-      font-size: clamp(2.6rem, 4vw, 3.8rem);
-      margin-bottom: 1rem;
-      animation: glow 3s ease-in-out infinite alternate;
-      text-shadow: 0 0 20px rgba(255, 154, 200, 0.5), 0 0 40px rgba(201, 167, 255, 0.3);
-    }
-
-    @keyframes glow {
-      from {
-        text-shadow: 0 0 20px rgba(255, 154, 200, 0.5), 0 0 40px rgba(201, 167, 255, 0.3);
-      }
-      to {
-        text-shadow: 0 0 30px rgba(255, 154, 200, 0.8), 0 0 60px rgba(201, 167, 255, 0.5), 0 0 80px rgba(181, 227, 255, 0.3);
-      }
-    }
-
-    .hero p {
-      max-width: 650px;
-      font-size: 1.25rem;
-      line-height: 1.7;
-      position: relative;
-    }
-
-    .hero p .cursor {
-      display: inline-block;
-      width: 3px;
-      height: 1.25rem;
-      background: var(--deep-purple);
-      margin-left: 2px;
-      animation: blink 1s infinite;
-      vertical-align: baseline;
-    }
-
-    @keyframes blink {
-      0%, 49% { opacity: 1; }
-      50%, 100% { opacity: 0; }
-    }
-
-    .button-group {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-
-    .btn {
-      background: var(--gradient);
-      color: #5d2e75;
-      border: none;
-      padding: 0.9rem 1.8rem;
-      border-radius: 999px;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: var(--soft-shadow);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 25px 45px rgba(140, 82, 255, 0.25), 0 0 20px rgba(255, 154, 200, 0.4);
-    }
-
-    .btn:active {
-      transform: translateY(-2px);
-    }
-
-    section {
-      padding: 3rem 2rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    h2.section-title {
-      text-align: center;
-      font-size: 2.4rem;
-      margin-bottom: 3rem;
-      color: #6d2d7c;
-      text-shadow: 0 10px 35px rgba(111, 63, 140, 0.25);
-      position: relative;
-      display: inline-block;
-      width: 100%;
-      padding: 0 3rem;
-    }
-
-    h2.section-title::before,
-    h2.section-title::after {
-      content: '✨';
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1.5rem;
-      animation: sparkle 2s ease-in-out infinite;
-    }
-
-    h2.section-title::before {
-      left: 0;
-    }
-
-    h2.section-title::after {
-      right: 0;
-    }
-
-    @keyframes sparkle {
-      0%, 100% {
-        opacity: 0.5;
-        transform: translateY(-50%) scale(0.8);
-      }
-      50% {
-        opacity: 1;
-        transform: translateY(-50%) scale(1.2);
-      }
-    }
-
-    /* Instagram-style Memory Feed */
-    .memory-feed {
-      max-width: 600px;
-      margin: 2rem auto;
-      display: grid;
-      gap: 2rem;
-      padding-bottom: 2rem;
-    }
-
-    .instagram-post {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      border: 1px solid rgba(255, 154, 200, 0.2);
-    }
-
-    .instagram-post:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(255, 154, 200, 0.3);
-    }
-
-    .post-header {
-      padding: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-    }
-
-    .post-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--gradient);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: white;
-      flex-shrink: 0;
-    }
-
-    .post-username {
-      font-weight: 600;
-      color: #4c2b57;
-      font-size: 0.95rem;
-    }
-
-    .post-date {
-      font-size: 0.85rem;
-      color: #999;
-      margin-left: auto;
-    }
-
-    .post-image-container {
-      width: 100%;
-      aspect-ratio: 1;
-      overflow: hidden;
-      background: #f0f0f0;
-      position: relative;
-      cursor: pointer;
-    }
-
-    .post-image-container img,
-    .post-image-container video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .post-caption {
-      padding: 1rem;
-      color: #4c2b57;
-      line-height: 1.6;
-      font-size: 0.95rem;
-    }
-
-    .post-caption strong {
-      color: #6d2d7c;
-      font-weight: 600;
-    }
-
-    .post-actions {
-      padding: 0.75rem 1rem;
-      display: flex;
-      gap: 1rem;
-      border-top: 1px solid rgba(0, 0, 0, 0.08);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-    }
-
-    .post-action-btn {
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-      padding: 0;
-      line-height: 1;
-    }
-
-    .post-action-btn:hover {
-      transform: scale(1.2);
-    }
-
-    /* Add Memory Button */
-    .add-memory-btn {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: var(--gradient);
-      border: none;
-      font-size: 1.8rem;
-      cursor: pointer;
-      box-shadow: 0 4px 20px rgba(255, 154, 200, 0.4);
-      z-index: 50;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .add-memory-btn:hover {
-      transform: scale(1.1) rotate(90deg);
-      box-shadow: 0 6px 30px rgba(255, 154, 200, 0.6);
-    }
-
-    /* Add Memory Modal */
-    .add-memory-modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(36, 17, 52, 0.88);
-      -webkit-backdrop-filter: blur(8px);
-      backdrop-filter: blur(8px);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .add-memory-modal.active {
-      display: flex;
-      opacity: 1;
-    }
-
-    .add-memory-content {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 30px;
-      padding: 2.5rem;
-      max-width: 500px;
-      width: 100%;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 40px rgba(255,154,200,0.3);
-      transform: scale(0.9);
-      transition: transform 0.3s ease;
-    }
-
-    .add-memory-modal.active .add-memory-content {
-      transform: scale(1);
-    }
-
-    .add-memory-form input[type="text"],
-    .add-memory-form input[type="file"],
-    .add-memory-form textarea {
-      width: 100%;
-      padding: 0.8rem;
-      border-radius: 12px;
-      border: 2px solid rgba(255, 154, 200, 0.3);
-      font-size: 1rem;
-      font-family: inherit;
-      margin-bottom: 1rem;
-      box-sizing: border-box;
-    }
-
-    .add-memory-form input[type="file"] {
-      cursor: pointer;
-      background: rgba(255, 255, 255, 0.9);
-    }
-
-    .add-memory-form label {
-      display: block;
-      margin-bottom: 0.5rem;
-      color: #6d2d7c;
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-
-    .add-memory-form input:focus,
-    .add-memory-form textarea:focus {
-      outline: none;
-      border-color: var(--pink);
-      box-shadow: 0 0 0 3px rgba(255, 154, 200, 0.2);
-    }
-
-    .add-memory-form textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
-
-    .timeline {
-      display: grid;
-      gap: 2rem;
-    }
-
-    .memory-card {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      border-radius: var(--card-radius);
-      background: rgba(255, 255, 255, 0.88);
-      box-shadow: var(--soft-shadow);
-      padding: 1.5rem;
-      border: 2px dashed rgba(255, 154, 200, 0.5);
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .memory-card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: url('https://www.transparenttextures.com/patterns/white-wall.png');
-      mix-blend-mode: soft-light;
-      opacity: 0.3;
-      pointer-events: none;
-    }
-
-    .memory-card:hover {
-      transform: translateY(-6px) rotate(-0.5deg);
-      box-shadow: 0 25px 50px rgba(118, 74, 170, 0.3), 0 0 30px rgba(255, 154, 200, 0.4);
-      border-color: rgba(255, 154, 200, 0.8);
-    }
-
-    .memory-media {
-      border-radius: 18px;
-      overflow: hidden;
-      border: 4px solid rgba(255, 255, 255, 0.8);
-      position: relative;
-    }
-
-    .memory-media img,
-    .memory-media video {
-      width: 100%;
-      display: block;
-      aspect-ratio: 16/9;
-      object-fit: cover;
-    }
-
-    .sticker {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: var(--soft-yellow);
-      border-radius: 14px;
-      padding: 0.4rem 0.9rem;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #6b305f;
-      box-shadow: 0 10px 25px rgba(255, 242, 178, 0.7), 0 0 15px rgba(255, 242, 178, 0.5);
-      animation: float 3s ease-in-out infinite;
-      z-index: 10;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0) rotate(-2deg); }
-      50% { transform: translateY(-8px) rotate(2deg); }
-    }
-
-    .flaps-grid,
-    .collage-grid,
-    .guestbook-wall {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .flap-card {
-      position: relative;
-      perspective: 1500px;
-      height: 220px;
-    }
-
-    .flap-card button {
-      width: 100%;
-      height: 100%;
-      border: none;
-      border-radius: var(--card-radius);
-      background: var(--gradient);
-      color: #5a2671;
-      font-size: 1.05rem;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: var(--soft-shadow);
-      transition: transform 0.6s;
-      transform-style: preserve-3d;
-      position: relative;
-    }
-
-    .flap-card.open button {
-      transform: rotateY(180deg);
-    }
-
-    .flap-front,
-    .flap-back {
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      backface-visibility: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1.2rem;
-      text-align: center;
-    }
-
-    .flap-back {
-      transform: rotateY(180deg);
-      background: rgba(255, 255, 255, 0.95);
-      color: #623076;
-      font-size: 0.95rem;
-    }
-
-    .slideshow {
-      position: relative;
-      border-radius: var(--card-radius);
-      overflow: hidden;
-      box-shadow: var(--soft-shadow);
-      border: 6px double rgba(255, 255, 255, 0.8);
-    }
-
-    .slideshow img {
-      width: 100%;
-      display: none;
-      animation: gentleZoom 12s ease-in-out infinite;
-    }
-
-    .slideshow img.active {
-      display: block;
-    }
-
-    @keyframes gentleZoom {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-
-    .collage-grid figure {
-      background: rgba(255, 255, 255, 0.92);
-      border-radius: 40px 10px 35px 15px;
-      padding: 0.7rem;
-      border: 3px dotted rgba(255, 154, 200, 0.5);
-      box-shadow: var(--soft-shadow);
-    }
-
-    .collage-grid img {
-      width: 100%;
-      border-radius: 30px 8px 30px 12px;
-      display: block;
-    }
-
-    .celebration-playground {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 2rem;
-    }
-
-    .cake-card,
-    .wheel-card,
-    .pull-tab {
-      background: rgba(255, 255, 255, 0.92);
-      border-radius: var(--card-radius);
-      padding: 1.8rem;
-      box-shadow: var(--soft-shadow);
-      position: relative;
-    }
-
-    .cake {
-      width: 160px;
-      height: 140px;
-      margin: 0 auto;
-      position: relative;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-
-    .cake:hover {
-      transform: translateY(-6px);
-    }
-
-    .cake .layer {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 160px;
-      height: 60px;
-      background: var(--pink);
-      border-radius: 30px 30px 12px 12px;
-      box-shadow: inset 0 -8px rgba(0,0,0,0.08);
-    }
-
-    .cake .layer.top {
-      top: 0;
-      width: 120px;
-      height: 50px;
-      border-radius: 30px;
-      background: var(--lavender);
-    }
-
-    .candle {
-      position: absolute;
-      width: 8px;
-      height: 35px;
-      background: white;
-      border-radius: 20px;
-      top: -25px;
-      left: calc(50% - 4px);
-    }
-
-    .flame {
-      position: absolute;
-      top: -12px;
-      left: -5px;
-      width: 18px;
-      height: 28px;
-      background: radial-gradient(circle, var(--soft-yellow), orange);
-      border-radius: 50% 50% 50% 50%;
-      animation: flicker 0.6s infinite alternate;
-      opacity: 1;
-      transform-origin: center;
-    }
-
-    @keyframes flicker {
-      from { transform: scale(1) rotate(-2deg); }
-      to { transform: scale(1.1) rotate(2deg); }
-    }
-
-    .cake[data-lit="false"] .flame {
-      opacity: 0;
-    }
-
-    .wheel {
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      margin: 0 auto;
-      background: conic-gradient(var(--pink) 0 60deg, var(--mint) 60deg 120deg, var(--lavender) 120deg 180deg, var(--soft-yellow) 180deg 240deg, var(--sky) 240deg 300deg, var(--pink) 300deg 360deg);
-      display: grid;
-      place-items: center;
-      color: #6b2d6d;
-      font-weight: 700;
-      transition: transform 4s cubic-bezier(0.25, 1, 0.3, 1);
-    }
-
-    .wheel-pointer {
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 0;
-      border-left: 12px solid transparent;
-      border-right: 12px solid transparent;
-      border-bottom: 25px solid #ff83b1;
-    }
-
-    .pull-tab button {
-      width: 100%;
-      border: none;
-      background: var(--gradient);
-      border-radius: 999px;
-      padding: 0.7rem 1.2rem;
-      font-weight: 600;
-      cursor: pointer;
-      color: #5d2e75;
-      box-shadow: var(--soft-shadow);
-    }
-
-    .pull-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.5s ease;
-      margin-top: 1rem;
-      color: #5a2f68;
-      line-height: 1.5;
-    }
-
-    .pull-tab.open .pull-content {
-      max-height: 200px;
-    }
-
-    .guestbook-wall .note {
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 24px;
-      padding: 1rem;
-      border: 2px dashed rgba(181, 227, 255, 0.7);
-      min-height: 120px;
-      position: relative;
-    }
-
-    .note::before {
-      content: '';
-      position: absolute;
-      top: 10px;
-      right: 16px;
-      font-size: 1.2rem;
-    }
-
-    form#guestbookForm {
-      margin-top: 2rem;
-      display: grid;
-      gap: 1rem;
-    }
-
-    form input,
-    form textarea {
-      border-radius: 18px;
-      border: none;
-      padding: 1rem;
-      font-size: 1rem;
-      background: rgba(255, 255, 255, 0.9);
-      box-shadow: inset 0 0 0 2px rgba(255, 154, 200, 0.2);
-      resize: none;
-    }
-
-    footer {
-      text-align: center;
-      padding: 3rem 1rem;
-      background: rgba(255, 255, 255, 0.8);
-      color: #6c3e74;
-    }
-
-    @media (max-width: 768px) {
-      .nav {
-        justify-content: space-between;
-        font-size: 0.85rem;
-        gap: 0.8rem;
-        padding: 0.8rem 1rem;
-        flex-wrap: wrap;
+  <title>Swarna — Birthday Scrapbook (24 Nov)</title>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    // Diagnostic: check whether styles.css is linked and applied
+    (function(){
+      function checkCss() {
+        try {
+          const sheets = Array.from(document.styleSheets).map(s => s.href).filter(Boolean);
+          const found = sheets.some(h => h && h.endsWith('styles.css')) || sheets.some(h => h && h.includes('/styles.css'));
+          console.log('DEBUG: styles.css linked (document.styleSheets):', found, sheets);
+          const bodyStyle = window.getComputedStyle(document.body);
+          console.log('DEBUG: computed body background:', bodyStyle.backgroundImage || bodyStyle.background);
+        } catch (err) {
+          console.error('DEBUG: css check failed', err);
+        }
       }
 
-      .nav a {
-        font-size: 0.9rem;
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', checkCss);
+      } else {
+        setTimeout(checkCss, 50);
       }
-
-      section {
-        padding: 3rem 1.5rem;
-      }
-
-      .page {
-        padding-top: 70px;
-      }
-
-      .celebration-playground {
-        grid-template-columns: 1fr;
-      }
-
-      h2.section-title {
-        font-size: 2rem;
-      }
-
-      h2.section-title::before,
-      h2.section-title::after {
-        display: none;
-      }
-
-      .hero {
-        padding: 5rem 1.5rem 3rem;
-      }
-
-      .hero h1 {
-        font-size: 2rem;
-      }
-
-      .hero p {
-        font-size: 1.1rem;
-      }
-
-      .memory-card {
-        padding: 1.2rem;
-      }
-
-      .flap-card,
-      .wheel {
-        height: 180px;
-      }
-
-      .wheel {
-        width: 180px;
-      }
-
-      .stars-container .star {
-        font-size: 1.2rem;
-      }
-
-      #lightbox {
-        padding: 1rem;
-      }
-
-      #closeLightbox {
-        top: 1rem;
-        right: 1rem;
-        padding: 0.6rem 1rem;
-        font-size: 0.9rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .button-group {
-        flex-direction: column;
-        width: 100%;
-      }
-
-      .btn {
-        width: 100%;
-      }
-
-      .guestbook-wall {
-        grid-template-columns: 1fr;
-      }
-
-      .collage-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+    })();
+  </script>
 </head>
 <body>
   <div class="stars-container" id="starsContainer" aria-hidden="true"></div>
   <div class="confetti-splash" aria-hidden="true"></div>
   <canvas id="celebrationCanvas"></canvas>
 
-  <audio id="birthdayAudio" loop src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_f4f4bcc1f8.mp3?filename=birthday-111331.mp3"></audio>
+  <audio id="birthdayAudio" loop src="https://interactive-examples.mdn.mozilla.net/media/examples/t-rex-roar.mp3"></audio>
 
-  <nav class="nav">
-    <a href="#" data-page="home" class="active">Home</a>
-    <a href="#" data-page="memories">Memories</a>
-    <a href="#" data-page="messages">Messages</a>
-    <a href="#" data-page="celebration">Celebration</a>
-    <a href="#" data-page="surprise">Surprise</a>
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <button class="nav-toggle" aria-expanded="false" aria-controls="primary-navigation" aria-label="Open menu">☰</button>
+    <div class="nav-links" id="primary-navigation">
+      <a href="#" data-page="home" class="active">Home</a>
+      <a href="#" data-page="memories">Memories</a>
+      <a href="#" data-page="messages">Messages</a>
+      <a href="#" data-page="celebration">Celebration</a>
+      <a href="#" data-page="surprise">Surprise</a>
+    </div>
   </nav>
+  <div class="menu-overlay" aria-hidden="true"></div>
 
   <!-- HOME PAGE -->
   <div id="home" class="page active">
@@ -1125,7 +61,7 @@
       <div class="gift-box" style="bottom: 15%; left: 15%;" title="Click for surprise!"></div>
       <div class="gift-box" style="bottom: 20%; right: 20%; background: var(--lavender);" title="Click for surprise!"></div>
       
-      <h1>Happy Birthday, Starfriend! 🎂</h1>
+  <h1>🎉 Happy Birthday, Swarna! 🎂 🎈</h1>
       <p id="typedMessage"></p>
       <div class="button-group">
         <button class="btn" id="celebrationBtn">🎊 Confetti Mode 🎊</button>
@@ -1137,46 +73,15 @@
 
   <!-- MEMORIES PAGE -->
   <div id="memories" class="page">
-    <div class="party-hat" style="top: 100px; left: 10%;">📸</div>
-    <div class="party-hat" style="top: 120px; right: 12%;">📷</div>
-    <div class="balloon pink" style="top: 15%; left: 5%;"></div>
-    <div class="balloon lavender" style="top: 20%; right: 8%;"></div>
     <section>
-    <h2 class="section-title">📸 Memory Feed 📸</h2>
-    <div class="memory-feed" id="memoryFeed">
-      <!-- Memories will be dynamically loaded here -->
-    </div>
-    <button class="add-memory-btn" id="addMemoryBtn" title="Add New Memory">➕</button>
-
-    <!-- Add Memory Modal -->
-    <div class="add-memory-modal" id="addMemoryModal">
-      <div class="add-memory-content">
-        <h3 style="text-align: center; color: #6d2d7c; margin-bottom: 1.5rem; font-size: 1.8rem;">✨ Add New Memory ✨</h3>
-        <form class="add-memory-form" id="addMemoryForm">
-          <label style="display: block; margin-bottom: 0.5rem; color: #6d2d7c; font-weight: 600;">Choose or Upload Image 📷</label>
-          <input type="file" id="memoryImageFile" accept="image/*" style="margin-bottom: 0.5rem;" />
-          <div style="text-align: center; margin: 0.5rem 0; color: #999; font-size: 0.9rem;">OR</div>
-          <input type="text" id="memoryImageUrl" placeholder="Paste image URL here (optional)" />
-          <div id="imagePreview" style="margin-top: 1rem; display: none;">
-            <img id="previewImg" src="" alt="Preview" style="max-width: 100%; max-height: 200px; border-radius: 12px; border: 2px solid rgba(255, 154, 200, 0.3);" />
-          </div>
-          <input type="text" id="memoryUsername" placeholder="Username (e.g., Birthday Girl) 👤" value="Birthday Girl" required style="margin-top: 1rem;" />
-          <textarea id="memoryCaption" placeholder="Write your memory caption here... 💭" required></textarea>
-          <div style="display: flex; gap: 1rem;">
-            <button type="submit" class="btn" style="flex: 1;">Add Memory ✨</button>
-            <button type="button" class="btn" id="closeAddMemoryModal" style="flex: 1; background: rgba(255, 255, 255, 0.9); color: #6d2e75;">Cancel</button>
-          </div>
-        </form>
-        <div style="margin-top: 1rem; padding: 1rem; background: rgba(255, 154, 200, 0.1); border-radius: 12px; font-size: 0.9rem; color: #6d2d7c;">
-          <strong>💡 Easy Image Upload:</strong>
-          <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
-            <li>Click "Choose File" to select from your device</li>
-            <li>Or upload to <a href="https://imgur.com" target="_blank">Imgur</a> / <a href="https://imgbb.com" target="_blank">ImgBB</a> and paste URL</li>
-            <li>Image will be converted to URL automatically</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+      <h2 class="section-title">📸 Memory Feed 📸</h2>
+      <form id="uploadForm" style="max-width: 500px; margin: 2rem auto; padding: 2rem; background: rgba(255,255,255,0.9); border-radius: 12px; box-shadow: var(--soft-shadow);">
+        <input type="file" id="imageFile" accept="image/*" required style="margin-bottom: 1rem; width: 100%;" />
+        <textarea id="caption" placeholder="Add a caption..." style="width: 100%; min-height: 80px; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc; margin-bottom: 1rem;"></textarea>
+        <button type="submit" class="btn" style="width: 100%;">Post Memory ✨</button>
+      </form>
+      <button id="addMemoryBtn" class="btn" style="margin: 2rem auto; display: block;">Add New Memory ➕</button>
+      <div class="memory-feed" id="memoryFeed"></div>
     </section>
   </div>
 
@@ -1260,10 +165,13 @@
     <div class="balloon lavender" style="top: 15%; right: 15%;"></div>
     <div class="balloon mint" style="bottom: 25%; left: 10%;"></div>
     <div class="balloon yellow" style="bottom: 20%; right: 12%;"></div>
+    <div class="balloon pink" style="top: 25%; left: 25%;"></div>
     <div class="party-hat" style="top: 100px; left: 20%;">🎉</div>
     <div class="party-hat" style="top: 120px; right: 18%;">🎊</div>
+    <div class="party-hat" style="top: 150px; left: 30%;">🎈</div>
     <div class="gift-box" style="top: 180px; left: 8%;"></div>
     <div class="gift-box" style="top: 200px; right: 10%; background: var(--soft-yellow);"></div>
+    <div class="gift-box" style="top: 220px; left: 35%; background: var(--mint);"></div>
     <section>
     <h2 class="section-title">🎉 Pop-up Celebration Playground 🎉</h2>
     <div class="celebration-playground">
@@ -1326,6 +234,36 @@
     </section>
   </div>
 
+  <div id="addMemoryModal" style="display: none; position: fixed; inset: 0; background: rgba(36, 17, 52, 0.88); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); z-index: 1000; align-items: center; justify-content: center; padding: 2rem; opacity: 0; transition: opacity 0.3s ease;">
+    <div id="addMemoryModalContent" style="background: rgba(255, 255, 255, 0.95); border-radius: 30px; padding: 2.5rem; max-width: 500px; width: 100%; box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 40px rgba(255,154,200,0.3); transform: scale(0.9); transition: transform 0.3s ease;">
+      <h3 style="text-align: center; color: #6d2d7c; margin-bottom: 1.5rem; font-size: 1.8rem;">Add New Memory 📸</h3>
+      <form id="addMemoryForm">
+        <div style="margin-bottom: 1rem;">
+          <label for="memoryImageFile" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Upload Images:</label>
+          <input type="file" id="memoryImageFile" accept="image/*" multiple style="width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc;" />
+        </div>
+        <div style="margin-bottom: 1rem;">
+          <label for="memoryImageUrl" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Or Image URL:</label>
+          <input type="url" id="memoryImageUrl" placeholder="Paste image URL here" style="width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc;" />
+        </div>
+        <div style="margin-bottom: 1rem;">
+          <label for="memoryUsername" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Username:</label>
+          <input type="text" id="memoryUsername" value="Swarna" style="width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc;" />
+        </div>
+        <div style="margin-bottom: 1rem;">
+          <label for="memoryCaption" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Caption:</label>
+          <textarea id="memoryCaption" placeholder="Add a caption..." style="width: 100%; min-height: 100px; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc; resize: vertical;"></textarea>
+        </div>
+        <div id="imagePreview" style="margin-bottom: 1rem;"></div>
+        <img id="previewImg" style="display: none; max-width: 100%; border-radius: 8px; margin-bottom: 1rem;" />
+        <div style="display: flex; gap: 1rem;">
+          <button type="submit" class="btn" style="flex: 1;">Add Memory ✨</button>
+          <button type="button" id="closeAddMemoryModal" class="btn" style="flex: 1; background: rgba(255, 255, 255, 0.9); color: #6d2d7c;">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <div id="lightbox" aria-hidden="true" style="display:none; position:fixed; inset:0; background:rgba(36,17,52,0.88); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); z-index:900; align-items:center; justify-content:center; padding:2rem; opacity:0; transition: opacity 0.3s ease;">
     <button id="closeLightbox" class="btn" style="position:absolute; top:2rem; right:2rem; z-index:901;">Close ✕</button>
     <div id="lightboxContent" style="max-width:900px; width:100%; border-radius:24px; overflow:hidden; box-shadow:0 30px 60px rgba(0,0,0,0.5), 0 0 40px rgba(255,154,200,0.3); transform: scale(0.9); transition: transform 0.3s ease;"></div>
@@ -1336,7 +274,7 @@
   </footer>
 
   <script>
-    const typedText = "From our silliest bloopers to the boldest dreams, today celebrates the woman who colors every chapter of my story. Happy Birthday, bestie!";
+  const typedText = "Swarna — from our silliest bloopers to the boldest dreams, today celebrates the woman who colors every chapter of my story. Happy 24th November, Swarna! 🎉";
     const typedMessageEl = document.getElementById('typedMessage');
     let charIndex = 0;
     function typeLoop() {
@@ -1394,13 +332,59 @@
     };
 
     // Navigation click handlers
-    document.querySelectorAll('.nav a[data-page]').forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const pageId = link.getAttribute('data-page');
+    // Robust navigation: delegate clicks for any element with a data-page attribute
+    document.addEventListener('click', (e) => {
+      const navEl = e.target.closest('[data-page]');
+      if (!navEl) return;
+      // only handle navigation links inside the nav or with data-page attribute
+      const pageId = navEl.getAttribute('data-page');
+      if (!pageId) return;
+      e.preventDefault();
+      // close mobile nav if open
+      const nav = document.querySelector('.nav');
+      const toggle = nav ? nav.querySelector('.nav-toggle') : null;
+      if (nav && nav.classList.contains('open')) {
+        nav.classList.remove('open');
+        if (toggle) toggle.setAttribute('aria-expanded', 'false');
+      }
+      if (typeof showPage === 'function') {
         showPage(pageId);
-      });
+      } else {
+        console.warn('showPage not defined yet for', pageId);
+      }
     });
+
+    // Mobile nav toggle behavior: open/close the collapsible nav on small screens
+    (function setupMobileNavToggle(){
+      const nav = document.querySelector('.nav');
+      if (!nav) return;
+      const toggle = nav.querySelector('.nav-toggle');
+  const links = nav.querySelector('.nav-links');
+  const overlay = document.querySelector('.menu-overlay');
+      if (!toggle || !links) return;
+
+      toggle.addEventListener('click', () => {
+        const expanded = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!expanded));
+        nav.classList.toggle('open');
+      });
+
+      // Close when overlay tapped
+      if (overlay) {
+        overlay.addEventListener('click', () => {
+          nav.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      }
+
+      // Close menu when a link is tapped (mobile)
+      links.addEventListener('click', (e) => {
+        if (e.target && e.target.matches('a')) {
+          nav.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    })();
 
     document.addEventListener('DOMContentLoaded', () => {
       typeLoop();
@@ -1422,10 +406,10 @@
           
           // Show surprise message
           const messages = [
-            '🎁 Surprise! You found a hidden gift!',
-            '🎉 You\'re amazing! Keep exploring!',
-            '✨ Your presence is the best gift!',
-            '🎊 Happy Birthday, superstar!'
+              '🎁 Surprise! You found a hidden gift, Swarna!',
+              '🎉 You\'re amazing, Swarna! Keep exploring!',
+              '✨ Your presence is the best gift!',
+              '🎊 Happy Birthday, Swarna!'
           ];
           const surprise = document.createElement('div');
           surprise.textContent = messages[index % messages.length];
@@ -1530,6 +514,55 @@
       }
     }, true);
 
+    // Interactive decorations: balloons, party hats, streamers
+    document.addEventListener('click', (e) => {
+      const target = e.target.closest('.balloon, .party-hat, .streamer');
+      if (target) {
+        const rect = target.getBoundingClientRect();
+        for (let i = 0; i < 10; i++) {
+          setTimeout(() => {
+            createSparkle(
+              rect.left + Math.random() * rect.width,
+              rect.top + Math.random() * rect.height
+            );
+          }, i * 50);
+        }
+        // Play a sound if available
+        if (starSound) starSound.play().catch(() => {});
+      }
+    });
+
+    // Emoji reactions for posts
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('emoji-react')) {
+        const reactions = ['😊', '😂', '🥰', '😍', '🤩', '😎', '🙌', '💖'];
+        const randomReaction = reactions[Math.floor(Math.random() * reactions.length)];
+        const reactionEl = document.createElement('div');
+        reactionEl.textContent = randomReaction;
+        reactionEl.style.cssText = `
+          position: fixed;
+          top: ${e.clientY - 20}px;
+          left: ${e.clientX - 10}px;
+          font-size: 2rem;
+          pointer-events: none;
+          animation: floatUp 1s ease-out forwards;
+          z-index: 1000;
+        `;
+        document.body.appendChild(reactionEl);
+        setTimeout(() => reactionEl.remove(), 1000);
+      }
+    });
+
+    // Add floatUp animation
+    const reactionStyle = document.createElement('style');
+    reactionStyle.innerHTML = `
+      @keyframes floatUp {
+        0% { transform: translateY(0) scale(1); opacity: 1; }
+        100% { transform: translateY(-50px) scale(1.5); opacity: 0; }
+      }
+    `;
+    document.head.appendChild(reactionStyle);
+
     // hero confetti sprinkles
     const confettiSplash = document.querySelector('.confetti-splash');
     function createConfettiPiece() {
@@ -1603,117 +636,40 @@
       }, 300);
     }
 
-    // Memory Feed System - Easy Instagram-style posts
-    const memoriesData = [
-      {
-        image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80',
-        username: 'Birthday Girl',
-        avatar: '🎂',
-        caption: 'First College Adventure ✨ Remember how we got lost on day one and discovered the coziest cafe instead? Best accidental tradition ever. 💕'
-      },
-      {
-        image: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80',
-        username: 'Birthday Girl',
-        avatar: '🎂',
-        caption: 'Starry Rooftop Sessions ⭐ Blankets, fairy lights, and unstoppable dream-building. The perfect ritual. 🌙✨'
-      },
-      {
-        image: 'https://images.unsplash.com/photo-1547036967-23d11aacaee0?auto=format&fit=crop&w=900&q=80',
-        username: 'Birthday Girl',
-        avatar: '🎂',
-        caption: 'Sholingur 🏛️ Our first temple visit together! The peaceful vibes and beautiful architecture made it unforgettable. 🙏✨'
-      },
-      {
-        image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=900&q=80',
-        username: 'Birthday Girl',
-        avatar: '🎂',
-        caption: 'Vellore 🏰 Exploring the historic fort and discovering hidden stories together. What an adventure! 📸💕'
-      },
-      {
-        image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=900&q=80',
-        username: 'Birthday Girl',
-        avatar: '🎂',
-        caption: 'Theerthagiri Murugan Temple ⛩️ The divine atmosphere and stunning architecture left us in awe. Beautiful memories! 🌟'
-      },
-      {
-        image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=900&q=80',
-        username: 'Birthday Girl',
-        avatar: '🎂',
-        caption: 'Thiruthani 🙏 Another spiritual journey, another beautiful memory created. The climb was worth every step! 🏔️'
-      },
-      {
-        image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=900&q=80',
-        username: 'Birthday Girl',
-        avatar: '🎂',
-        caption: 'Thirupathi 🕉️ Our pilgrimage together was filled with prayers, peace, and precious moments. Truly blessed! ✨'
-      },
-      {
-        image: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=900&q=80',
-        username: 'Birthday Girl',
-        avatar: '🎂',
-        caption: 'Vadapalani 🏪 Shopping spree and street food adventures! The best kind of day out together! 🛍️🍜'
-      },
-      {
-        image: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=900&q=80',
-        username: 'Birthday Girl',
-        avatar: '🎂',
-        caption: 'Express Avenue Mall 🏬 Endless shopping, food court feasts, and fun times! Shopping with you is always the best! 💕🛒'
-      },
-      {
-        image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80',
-        username: 'Birthday Girl',
-        avatar: '🎂',
-        caption: 'Bessy Beach 🌊 Sunset walks, sand between our toes, and endless conversations. Beach days with you are pure magic! 🌅'
-      },
-      {
-        image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80',
-        username: 'Birthday Girl',
-        avatar: '🎂',
-        caption: 'Marina Beach 🏖️ The longest beach walk, street food, and unforgettable memories! Classic Chennai vibes! 🌊✨'
-      },
-      {
-        image: 'https://images.unsplash.com/photo-1528607929212-2636ec44253e?auto=format&fit=crop&w=900&q=80',
-        username: 'Birthday Girl',
-        avatar: '🎂',
-        caption: 'KFC 🍗 Our go-to comfort food place! Crispy chicken, unlimited laughs, and the best conversations. Foodie memories! 🍟'
-      },
-      {
-        image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=900&q=80',
-        username: 'Birthday Girl',
-        avatar: '🎂',
-        caption: 'Virudhachalam 🏛️ Another temple, another beautiful adventure. The spiritual journey continues! 🙏💫'
-      },
-      {
-        image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=900&q=80',
-        username: 'Birthday Girl',
-        avatar: '🎂',
-        caption: 'Kanchipuram 🏛️ The city of temples! Exploring history, architecture, and creating memories one temple at a time! 📸'
-      },
-      {
-        image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80',
-        username: 'Birthday Girl',
-        avatar: '🎂',
-        caption: 'Kolivakkam 🌊 Beach vibes, fresh air, and the perfect escape from the city. Beach day perfection! 🏖️💙'
-      },
-      {
-        image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=900&q=80',
-        username: 'Birthday Girl',
-        avatar: '🎂',
-        caption: 'Pondicherry 🌴 French vibes, beautiful promenades, and cafe hopping! Our coastal adventure was everything! ☕💕'
-      },
-      {
-        image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=900&q=80',
-        username: 'Birthday Girl',
-        avatar: '🎂',
-        caption: 'Kerala 🌿 Backwaters, boat rides, and lush greenery! Our Kerala trip was a dream come true. So many memories! 🚤💚'
-      },
-      {
-        image: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=900&q=80',
-        username: 'Birthday Girl',
-        avatar: '🎂',
-        caption: 'Movie Theaters 🎬 Countless movie nights, shared popcorn, and discussing plots! Our cinema adventures are the best! 🍿🎥'
+  // Memory Feed System - Easy Instagram-style posts
+  // Will be replaced by stored data (if present) after this declaration
+  let memoriesData = [];
+
+    // --- Persistence (localStorage) ---
+    const STORAGE_KEY = 'swarna_memories_v2';
+
+    function saveMemoriesToStorage() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(memoriesData));
+      } catch (e) {
+        console.warn('Failed to save memories to storage', e);
       }
-    ];
+    }
+
+    function loadMemoriesFromStorage() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) return parsed;
+      } catch (e) {
+        console.warn('Failed to load memories from storage', e);
+      }
+      return null;
+    }
+
+    // If user has previously saved memories, use those instead of defaults
+    (function initMemoriesFromStorage(){
+      const stored = loadMemoriesFromStorage();
+      if (stored && stored.length) {
+        memoriesData = stored;
+      }
+    })();
 
     function renderMemories() {
       const feed = document.getElementById('memoryFeed');
@@ -1724,33 +680,27 @@
         post.className = 'instagram-post';
         post.innerHTML = `
           <div class="post-header">
-            <div class="post-avatar">${memory.avatar || '🎂'}</div>
+              <div class="post-avatar">${memory.avatar || '🎂'}</div>
             <div>
-              <div class="post-username">${memory.username || 'Birthday Girl'}</div>
+              <div class="post-username">${memory.username || 'Swarna'}</div>
             </div>
           </div>
           <div class="post-image-container" data-image="${memory.image}" data-index="${index}">
-            <img src="${memory.image}" alt="Memory ${index + 1}" loading="lazy" />
+            <img src="${memory.image}" alt="Memory ${index + 1}" loading="lazy" style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px;" />
           </div>
           <div class="post-actions">
             <button class="post-action-btn" title="Like">❤️</button>
             <button class="post-action-btn" title="Comment">💬</button>
             <button class="post-action-btn" title="Share">📤</button>
+            <button class="post-action-btn emoji-react" title="React">😊</button>
+            <button class="post-action-btn edit-btn" title="Edit">✏️</button>
+            <button class="post-action-btn delete-btn" title="Delete">🗑️</button>
           </div>
           <div class="post-caption">
-            <strong>${memory.username || 'Birthday Girl'}</strong> ${memory.caption || ''}
+            <strong>${memory.username || 'Swarna'}</strong> ${memory.caption || ''}
           </div>
         `;
         feed.appendChild(post);
-      });
-
-      // Add click handlers for images
-      document.querySelectorAll('.post-image-container').forEach(container => {
-        container.style.cursor = 'pointer';
-        container.addEventListener('click', () => {
-          const image = container.dataset.image;
-          openLightbox(image, 'image');
-        });
       });
     }
 
@@ -1793,24 +743,46 @@
     const memoryImageFile = document.getElementById('memoryImageFile');
     const imagePreview = document.getElementById('imagePreview');
     const previewImg = document.getElementById('previewImg');
-    let selectedImageDataUrl = null;
+    // Allow multiple selected images (data URLs)
+    let selectedImages = []; // { name, dataUrl }
 
     memoryImageFile.addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        // Clear URL input when file is selected
+      const files = Array.from(e.target.files || []);
+      if (files.length) {
+        // Clear URL input when file(s) are selected
         document.getElementById('memoryImageUrl').value = '';
-        
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          selectedImageDataUrl = e.target.result;
-          previewImg.src = selectedImageDataUrl;
-          imagePreview.style.display = 'block';
-        };
-        reader.readAsDataURL(file);
+
+        selectedImages = [];
+        imagePreview.innerHTML = '';
+        imagePreview.style.display = 'grid';
+        imagePreview.style.gridTemplateColumns = 'repeat(auto-fit, minmax(80px, 1fr))';
+        imagePreview.style.gap = '0.5rem';
+
+        files.forEach((file) => {
+          const reader = new FileReader();
+          reader.onload = (ev) => {
+            const dataUrl = ev.target.result;
+            selectedImages.push({ name: file.name, dataUrl });
+
+            // create thumbnail
+            const thumb = document.createElement('img');
+            thumb.src = dataUrl;
+            thumb.alt = file.name;
+            thumb.style.width = '100%';
+            thumb.style.height = '80px';
+            thumb.style.objectFit = 'cover';
+            thumb.style.borderRadius = '8px';
+            imagePreview.appendChild(thumb);
+
+            // hide single previewImg (legacy) if present
+            if (previewImg) previewImg.style.display = 'none';
+          };
+          reader.readAsDataURL(file);
+        });
       } else {
         imagePreview.style.display = 'none';
-        selectedImageDataUrl = null;
+        selectedImages = [];
+        if (previewImg) previewImg.style.display = '';
       }
     });
 
@@ -1819,69 +791,82 @@
       if (e.target.value.trim()) {
         memoryImageFile.value = '';
         imagePreview.style.display = 'none';
-        selectedImageDataUrl = null;
+        selectedImages = [];
+        if (previewImg) previewImg.style.display = '';
       }
     });
 
     addMemoryForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       let imageUrl = document.getElementById('memoryImageUrl').value.trim();
-      const username = document.getElementById('memoryUsername').value.trim() || 'Birthday Girl';
+      const username = document.getElementById('memoryUsername').value.trim() || 'Swarna';
       const caption = document.getElementById('memoryCaption').value.trim();
 
-      // Use file data URL if file was selected, otherwise use URL
-      if (selectedImageDataUrl) {
-        imageUrl = selectedImageDataUrl;
-      }
-
-      if (imageUrl && caption) {
-        // Add new memory to the array
+      // If files were selected, add each image as an entry; otherwise use the imageUrl (single)
+      if (selectedImages.length) {
+        selectedImages.reverse().forEach(img => {
+          memoriesData.unshift({
+            image: img.dataUrl,
+            username: username,
+            avatar: '🎂',
+            caption: caption || ''
+          });
+        });
+      } else if (imageUrl) {
         memoriesData.unshift({
           image: imageUrl,
           username: username,
           avatar: '🎂',
-          caption: caption
+          caption: caption || ''
         });
-
-        // Re-render memories
-        renderMemories();
-
-        // Close modal
-        addMemoryModal.classList.remove('active');
-        setTimeout(() => {
-          addMemoryModal.style.display = 'none';
-          addMemoryForm.reset();
-          imagePreview.style.display = 'none';
-          selectedImageDataUrl = null;
-          
-          // Scroll to top to see new post
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }, 300);
-
-        // Show success message
-        const successMsg = document.createElement('div');
-        successMsg.textContent = '✨ Memory added successfully!';
-        successMsg.style.cssText = `
-          position: fixed;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          background: var(--gradient);
-          padding: 1.5rem 2.5rem;
-          border-radius: 25px;
-          font-size: 1.2rem;
-          font-weight: bold;
-          color: #5d2e75;
-          z-index: 2000;
-          box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-          animation: popIn 0.5s ease-out;
-        `;
-        document.body.appendChild(successMsg);
-        setTimeout(() => {
-          successMsg.style.animation = 'popOut 0.5s ease-in forwards';
-          setTimeout(() => successMsg.remove(), 500);
-        }, 2000);
       }
+      // Persist new memories
+      try { saveMemoriesToStorage(); } catch (e) { /* ignore */ }
+      // If no images were provided, do nothing
+      if (!selectedImages.length && !imageUrl) return;
+
+      // How many were added (for success message)
+      const addedCount = selectedImages.length ? selectedImages.length : (imageUrl ? 1 : 0);
+
+      // Re-render memories
+      renderMemories();
+
+      // Close modal
+      addMemoryModal.classList.remove('active');
+      setTimeout(() => {
+        addMemoryModal.style.display = 'none';
+        addMemoryForm.reset();
+        imagePreview.style.display = 'none';
+        imagePreview.innerHTML = '';
+        selectedImages = [];
+
+        // Scroll to top to see new post
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 300);
+
+      // Show success message
+      const successMsg = document.createElement('div');
+      successMsg.textContent = addedCount > 1 ? `✨ ${addedCount} memories added successfully!` : '✨ Memory added successfully!';
+      successMsg.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: var(--gradient);
+        padding: 1.5rem 2.5rem;
+        border-radius: 25px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #5d2e75;
+        z-index: 2000;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        animation: popIn 0.5s ease-out;
+      `;
+      document.body.appendChild(successMsg);
+      setTimeout(() => {
+        successMsg.style.animation = 'popOut 0.5s ease-in forwards';
+        setTimeout(() => successMsg.remove(), 500);
+      }, 2000);
     });
 
     // Initialize memory feed when page loads
@@ -1929,6 +914,34 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && lightbox.style.display === 'flex') {
         closeLightbox();
+      }
+    });
+
+    // Simple upload for memories
+    document.addEventListener('DOMContentLoaded', () => {
+      const uploadForm = document.getElementById('uploadForm');
+      if (uploadForm) {
+        uploadForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const file = document.getElementById('imageFile').files[0];
+          const caption = document.getElementById('caption').value.trim();
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+              const imageUrl = ev.target.result;
+              memoriesData.unshift({
+                image: imageUrl,
+                username: 'Swarna',
+                avatar: '🎂',
+                caption: caption
+              });
+              saveMemoriesToStorage();
+              renderMemories();
+              uploadForm.reset();
+            };
+            reader.readAsDataURL(file);
+          }
+        });
       }
     });
 
@@ -2117,12 +1130,12 @@
     const wheel = document.getElementById('wishWheel');
     const wheelResult = document.getElementById('wheelResult');
     const wishes = [
-      'New food',
-      'Shopping',
-      'Movie with me',
-      'A full day with me I plan everything',
-      'Truth or dare with me',
-      'A dance reel with me'
+      '🍕 New food adventure',
+      '🛍️ Shopping spree',
+      '🎬 Movie night with me',
+      '🌟 A full day planned by me',
+      '🎲 Truth or dare challenge',
+      '💃 Dance reel together'
     ];
     document.getElementById('spinWheelBtn').addEventListener('click', () => {
       const spin = 360 * 5 + Math.floor(Math.random() * 360);
@@ -2131,6 +1144,8 @@
       const wish = wishes[wishIndex];
       setTimeout(() => {
         wheelResult.textContent = wish;
+        // Add confetti burst
+        launchCelebration();
       }, 4200);
     });
 
@@ -2252,6 +1267,42 @@
     });
 
     // Remove old smooth scrolling for anchor links (now handled by page system)
+
+    // Defensive wiring: ensure nav links are directly hooked to showPage
+    function wireNavLinks() {
+      try {
+        const navLinks = document.querySelectorAll('.nav-links a[data-page]');
+        navLinks.forEach(link => {
+          // avoid attaching duplicate listeners
+          if (link._wiredForNav) return;
+          link._wiredForNav = true;
+          link.addEventListener('click', (ev) => {
+            ev.preventDefault();
+            const pageId = link.getAttribute('data-page');
+            // close mobile nav if open
+            const nav = document.querySelector('.nav');
+            if (nav && nav.classList.contains('open')) {
+              nav.classList.remove('open');
+              const toggle = nav.querySelector('.nav-toggle');
+              if (toggle) toggle.setAttribute('aria-expanded', 'false');
+            }
+            if (typeof showPage === 'function') {
+              try { showPage(pageId); } catch (err) { console.error('showPage error:', err); }
+            } else {
+              console.warn('showPage is not defined when clicking nav link', pageId);
+            }
+          });
+        });
+      } catch (err) {
+        console.error('Error wiring nav links', err);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', wireNavLinks);
+    } else {
+      wireNavLinks();
+    }
   </script>
 </body>
 </html>
