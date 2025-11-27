@@ -40,7 +40,6 @@
     <div class="nav-links" id="primary-navigation">
       <a href="#" data-page="home" class="active">Home</a>
       <a href="#" data-page="memories">Memories</a>
-      <a href="#" data-page="messages">Messages</a>
       <a href="#" data-page="celebration">Celebration</a>
       <a href="#" data-page="surprise">Surprise</a>
     </div>
@@ -75,12 +74,6 @@
   <div id="memories" class="page">
     <section>
       <h2 class="section-title">📸 Memory Feed 📸</h2>
-      <form id="uploadForm" style="max-width: 500px; margin: 2rem auto; padding: 2rem; background: rgba(255,255,255,0.9); border-radius: 12px; box-shadow: var(--soft-shadow);">
-        <input type="file" id="imageFile" accept="image/*" required style="margin-bottom: 1rem; width: 100%;" />
-        <textarea id="caption" placeholder="Add a caption..." style="width: 100%; min-height: 80px; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc; margin-bottom: 1rem;"></textarea>
-        <button type="submit" class="btn" style="width: 100%;">Post Memory ✨</button>
-      </form>
-      <button id="addMemoryBtn" class="btn" style="margin: 2rem auto; display: block;">Add New Memory ➕</button>
       <div class="memory-feed" id="memoryFeed"></div>
     </section>
   </div>
@@ -128,36 +121,6 @@
     </section>
   </div>
 
-  <!-- MESSAGES PAGE -->
-  <div id="messages" class="page">
-    <div class="balloon mint" style="top: 18%; left: 8%;"></div>
-    <div class="balloon yellow" style="top: 22%; right: 10%;"></div>
-    <div class="party-hat" style="top: 150px; left: 15%;">💌</div>
-    <div class="gift-box" style="top: 120px; right: 15%; background: var(--mint);"></div>
-    <section>
-    <h2 class="section-title">💌 Lift-the-Flap Surprises 💌</h2>
-    <div class="flaps-grid">
-      <div class="flap-card">
-        <button>
-          <span class="flap-front">Open me for sparkly memories </span>
-          <span class="flap-back">You are the kind of friend who turns ordinary Tuesdays into constellations of joy. Never stop shining.</span>
-        </button>
-      </div>
-      <div class="flap-card">
-        <button>
-          <span class="flap-front">A hidden photo awaits </span>
-          <span class="flap-back"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=80" alt="Hidden polaroid" /></span>
-        </button>
-      </div>
-      <div class="flap-card">
-        <button>
-          <span class="flap-front">Mini video letter </span>
-          <span class="flap-back">Scan this QR-shaped hug:  Remember our karaoke chaos? A remix is waiting!</span>
-        </button>
-      </div>
-    </div>
-    </section>
-  </div>
 
   <!-- CELEBRATION PAGE -->
   <div id="celebration" class="page">
@@ -223,36 +186,6 @@
     </section>
   </div>
 
-  <div id="addMemoryModal" style="display: none; position: fixed; inset: 0; background: rgba(36, 17, 52, 0.88); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); z-index: 1000; align-items: center; justify-content: center; padding: 2rem; opacity: 0; transition: opacity 0.3s ease;">
-    <div id="addMemoryModalContent" style="background: rgba(255, 255, 255, 0.95); border-radius: 30px; padding: 2.5rem; max-width: 500px; width: 100%; box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 40px rgba(255,154,200,0.3); transform: scale(0.9); transition: transform 0.3s ease;">
-      <h3 style="text-align: center; color: #6d2d7c; margin-bottom: 1.5rem; font-size: 1.8rem;">Add New Memory 📸</h3>
-      <p style="text-align: center; color: #666; font-size: 0.9rem; margin-bottom: 1rem;">For permanent storage, upload images to a cloud service (like Google Drive, Imgur) and paste the shareable link below.</p>
-      <form id="addMemoryForm">
-        <div style="margin-bottom: 1rem;">
-          <label for="memoryImageFile" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Upload Images:</label>
-          <input type="file" id="memoryImageFile" accept="image/*" multiple style="width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc;" />
-        </div>
-        <div style="margin-bottom: 1rem;">
-          <label for="memoryImageUrl" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Or Image URL:</label>
-          <input type="url" id="memoryImageUrl" placeholder="Paste image URL here" style="width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc;" />
-        </div>
-        <div style="margin-bottom: 1rem;">
-          <label for="memoryUsername" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Username:</label>
-          <input type="text" id="memoryUsername" value="Swarna" style="width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc;" />
-        </div>
-        <div style="margin-bottom: 1rem;">
-          <label for="memoryCaption" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Caption:</label>
-          <textarea id="memoryCaption" placeholder="Add a caption..." style="width: 100%; min-height: 100px; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc; resize: vertical;"></textarea>
-        </div>
-        <div id="imagePreview" style="margin-bottom: 1rem;"></div>
-        <img id="previewImg" style="display: none; max-width: 100%; border-radius: 8px; margin-bottom: 1rem;" />
-        <div style="display: flex; gap: 1rem;">
-          <button type="submit" class="btn" style="flex: 1;">Add Memory ✨</button>
-          <button type="button" id="closeAddMemoryModal" class="btn" style="flex: 1; background: rgba(255, 255, 255, 0.9); color: #6d2d7c;">Cancel</button>
-        </div>
-      </form>
-    </div>
-  </div>
 
   <div id="lightbox" aria-hidden="true" style="display:none; position:fixed; inset:0; background:rgba(36,17,52,0.88); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); z-index:900; align-items:center; justify-content:center; padding:2rem; opacity:0; transition: opacity 0.3s ease;">
     <button id="closeLightbox" class="btn" style="position:absolute; top:2rem; right:2rem; z-index:901;">Close ✕</button>
@@ -522,6 +455,13 @@
       }
     });
 
+    // Like button animation
+    document.addEventListener('click', (e) => {
+      if (e.target.title === 'Like') {
+        e.target.classList.toggle('liked');
+      }
+    });
+
     // Emoji reactions for posts
     document.addEventListener('click', (e) => {
       if (e.target.classList.contains('emoji-react')) {
@@ -630,6 +570,62 @@
   // Will be replaced by stored data (if present) after this declaration
   let memoriesData = [];
 
+  // Image orientations
+  const imageOrientations = {
+    "file_0000000040085230949047095687d998_conversation_id=67ec8bd8-4d78-8000-b95e-7d517b10eeb6&message_id=35899465-3240-445d-b8ac-18b7cd6a4ea8.webp": "square",
+    "IMG-20240731-WA0020.jpg": "landscape",
+    "IMG-20240826-WA0006.jpg": "portrait",
+    "IMG-20240826-WA0020.jpg": "portrait",
+    "IMG-20240826-WA0046.jpg": "portrait",
+    "IMG-20241002-WA0032.jpg": "portrait",
+    "IMG-20241010-WA0003.jpg": "portrait",
+    "IMG-20241015-WA0007.jpg": "landscape",
+    "IMG-20241019-WA0019.jpg": "landscape",
+    "IMG-20241025-WA0029.jpg": "landscape",
+    "IMG-20241031-WA0242.jpg": "portrait",
+    "IMG-20241116-WA0017.jpg": "landscape",
+    "IMG-20241121-WA0037.jpg": "portrait",
+    "IMG-20241122-WA0005.jpg": "landscape",
+    "IMG-20241125-WA0006.jpg": "portrait",
+    "IMG-20241125-WA0088.jpg": "portrait",
+    "IMG-20241125-WA0146.jpg": "landscape",
+    "IMG-20241125-WA0225.jpg": "portrait",
+    "IMG-20241226-WA0004.jpg": "portrait",
+    "IMG-20250219-WA0021.jpg": "portrait",
+    "IMG-20250219-WA0027.jpg": "portrait",
+    "IMG-20250219-WA0031.jpg": "landscape",
+    "IMG-20250309-WA0021.jpg": "landscape",
+    "IMG-20250309-WA0101.jpg": "portrait",
+    "IMG-20250325-WA0033.jpg": "landscape",
+    "IMG-20250325-WA0034.jpg": "portrait",
+    "IMG-20250401-WA0023.jpg": "landscape",
+    "IMG-20250415-WA0047.jpg": "landscape",
+    "IMG-20250427-WA0040.jpg": "portrait",
+    "IMG-20250501-WA0010.jpg": "portrait",
+    "IMG-20250516-WA0016.jpg": "landscape",
+    "IMG-20250522-WA0132.jpg": "portrait",
+    "IMG-20250522-WA0179.jpg": "portrait",
+    "IMG-20250710-WA0004.jpg": "portrait",
+    "IMG-20250718-WA0118.jpg": "portrait",
+    "IMG-20250718-WA0176.jpg": "portrait",
+    "IMG-20250908-WA0034.jpg": "landscape",
+    "IMG-20250911-WA0008.jpg": "portrait",
+    "IMG-20251016-WA0016.jpg": "landscape",
+    "IMG-20251016-WA0026.jpg": "landscape",
+    "IMG-20251016-WA0039.jpg": "portrait",
+    "IMG-20251024-WA0000.jpg": "portrait",
+    "IMG-20251109-WA0030_1.jpg": "portrait",
+    "IMG-20251113-WA0138.jpg": "portrait",
+    "IMG-20251113-WA0141.jpg": "portrait",
+    "IMG20240420165531_2.jpg": "landscape",
+    "Snapchat-1235723272.jpg": "portrait",
+    "Snapchat-1357455389.jpg": "portrait",
+    "Snapchat-1874583499.jpg": "portrait",
+    "Snapchat-383841512.jpg": "portrait",
+    "Snapchat-715354389.jpg": "portrait",
+    "Snapchat-951809111.jpg": "portrait"
+  };
+
     // --- Persistence (localStorage) ---
     const STORAGE_KEY = 'swarna_memories_v2';
 
@@ -653,211 +649,104 @@
       return null;
     }
 
-    // If user has previously saved memories, use those instead of defaults
-    (function initMemoriesFromStorage(){
-      const stored = loadMemoriesFromStorage();
-      if (stored && stored.length) {
-        memoriesData = stored;
-      }
+    // Initialize with photos from images folder, username Swarna_Balaji
+     (function initMemories(){
+       const imageFiles = [
+         'file_0000000040085230949047095687d998_conversation_id=67ec8bd8-4d78-8000-b95e-7d517b10eeb6&message_id=35899465-3240-445d-b8ac-18b7cd6a4ea8.webp',
+         'IMG-20240731-WA0020.jpg',
+         'IMG-20240826-WA0006.jpg',
+         'IMG-20240826-WA0020.jpg',
+         'IMG-20240826-WA0046.jpg',
+         'IMG-20241002-WA0032.jpg',
+         'IMG-20241010-WA0003.jpg',
+         'IMG-20241015-WA0007.jpg',
+         'IMG-20241019-WA0019.jpg',
+         'IMG-20241025-WA0029.jpg',
+         'IMG-20241031-WA0242.jpg',
+         'IMG-20241116-WA0017.jpg',
+         'IMG-20241121-WA0037.jpg',
+         'IMG-20241122-WA0005.jpg',
+         'IMG-20241125-WA0006.jpg',
+         'IMG-20241125-WA0088.jpg',
+         'IMG-20241125-WA0146.jpg',
+         'IMG-20241125-WA0225.jpg',
+         'IMG-20241226-WA0004.jpg',
+         'IMG-20250219-WA0021.jpg',
+         'IMG-20250219-WA0027.jpg',
+         'IMG-20250219-WA0031.jpg',
+         'IMG-20250309-WA0021.jpg',
+         'IMG-20250309-WA0101.jpg',
+         'IMG-20250325-WA0033.jpg',
+         'IMG-20250325-WA0034.jpg',
+         'IMG-20250401-WA0023.jpg',
+         'IMG-20250415-WA0047.jpg',
+         'IMG-20250427-WA0040.jpg',
+         'IMG-20250501-WA0010.jpg',
+         'IMG-20250516-WA0016.jpg',
+         'IMG-20250522-WA0132.jpg',
+         'IMG-20250522-WA0179.jpg',
+         'IMG-20250710-WA0004.jpg',
+         'IMG-20250718-WA0118.jpg',
+         'IMG-20250718-WA0176.jpg',
+         'IMG-20250908-WA0034.jpg',
+         'IMG-20250911-WA0008.jpg',
+         'IMG-20251016-WA0016.jpg',
+         'IMG-20251016-WA0026.jpg',
+         'IMG-20251016-WA0039.jpg',
+         'IMG-20251024-WA0000.jpg',
+         'IMG-20251109-WA0030_1.jpg',
+         'IMG-20251113-WA0138.jpg',
+         'IMG-20251113-WA0141.jpg',
+         'IMG20240420165531_2.jpg',
+         'Snapchat-383841512.jpg',
+         'Snapchat-715354389.jpg',
+         'Snapchat-951809111.jpg',
+         'Snapchat-1235723272.jpg',
+         'Snapchat-1357455389.jpg',
+         'Snapchat-1874583499.jpg'
+       ];
+      memoriesData = imageFiles.map(file => ({
+        image: `images/${file}`,
+        username: 'Balaji_Swarna',
+        avatar: 'images/Balaji_Swarna.jpg',
+        caption: 'A beautiful memory ✨'
+      }));
+      // Clear any existing stored data
+      localStorage.removeItem(STORAGE_KEY);
     })();
 
     function renderMemories() {
-      const feed = document.getElementById('memoryFeed');
-      feed.innerHTML = '';
-      
-      memoriesData.forEach((memory, index) => {
-        const post = document.createElement('div');
-        post.className = 'instagram-post';
-        post.innerHTML = `
-          <div class="post-header">
-              <div class="post-avatar">${memory.avatar || '🎂'}</div>
-            <div>
-              <div class="post-username">${memory.username || 'Swarna'}</div>
-            </div>
-          </div>
-          <div class="post-image-container" data-image="${memory.image}" data-index="${index}">
-            <img src="${memory.image}" alt="Memory ${index + 1}" loading="lazy" style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px;" />
-          </div>
-          <div class="post-actions">
-            <button class="post-action-btn" title="Like">❤️</button>
-            <button class="post-action-btn" title="Comment">💬</button>
-            <button class="post-action-btn" title="Share">📤</button>
-            <button class="post-action-btn emoji-react" title="React">😊</button>
-            <button class="post-action-btn edit-btn" title="Edit">✏️</button>
-            <button class="post-action-btn delete-btn" title="Delete">🗑️</button>
-          </div>
-          <div class="post-caption">
-            <strong>${memory.username || 'Swarna'}</strong> ${memory.caption || ''}
-          </div>
-        `;
-        feed.appendChild(post);
-      });
-    }
+       const feed = document.getElementById('memoryFeed');
+       feed.innerHTML = '';
 
-    // Add Memory Modal
-    const addMemoryBtn = document.getElementById('addMemoryBtn');
-    const addMemoryModal = document.getElementById('addMemoryModal');
-    const addMemoryForm = document.getElementById('addMemoryForm');
-    const closeAddMemoryModal = document.getElementById('closeAddMemoryModal');
+       memoriesData.forEach((memory, index) => {
+         const filename = memory.image.split('/')[1];
+         const orientation = imageOrientations[filename] || 'square';
+         const post = document.createElement('div');
+         post.className = 'instagram-post';
+         post.innerHTML = `
+           <div class="post-header">
+               <div class="post-avatar">${memory.avatar && memory.avatar.startsWith('images/') ? `<img src="${memory.avatar}" alt="Avatar" style="width:100%; height:100%; border-radius:50%; object-fit:cover;" />` : (memory.avatar || '🎂')}</div>
+             <div>
+               <div class="post-username">${memory.username || 'Balaji_Swarna'}</div>
+             </div>
+           </div>
+           <div class="post-image-container" data-image="${memory.image}" data-index="${index}">
+             <img src="${memory.image}" alt="Memory ${index + 1}" loading="lazy" class="${orientation}" style="width: 100%; object-fit: cover; border-radius: 8px;" />
+           </div>
+           <div class="post-actions">
+             <button class="post-action-btn" title="Like">❤️</button>
+             <button class="post-action-btn" title="Comment">💬</button>
+             <button class="post-action-btn emoji-react" title="React">😊</button>
+           </div>
+           <div class="post-caption">
+             <strong>${memory.username || 'Swarna'}</strong> ${memory.caption || ''}
+           </div>
+         `;
+         feed.appendChild(post);
+       });
+     }
 
-    addMemoryBtn.addEventListener('click', () => {
-      addMemoryModal.style.display = 'flex';
-      requestAnimationFrame(() => {
-        addMemoryModal.classList.add('active');
-      });
-    });
-
-    closeAddMemoryModal.addEventListener('click', () => {
-      addMemoryModal.classList.remove('active');
-      setTimeout(() => {
-        addMemoryModal.style.display = 'none';
-        addMemoryForm.reset();
-        imagePreview.style.display = 'none';
-        selectedImageDataUrl = null;
-      }, 300);
-    });
-
-    addMemoryModal.addEventListener('click', (e) => {
-      if (e.target === addMemoryModal) {
-        addMemoryModal.classList.remove('active');
-        setTimeout(() => {
-          addMemoryModal.style.display = 'none';
-          addMemoryForm.reset();
-          imagePreview.style.display = 'none';
-          selectedImageDataUrl = null;
-        }, 300);
-      }
-    });
-
-    // Image file upload handler
-    const memoryImageFile = document.getElementById('memoryImageFile');
-    const imagePreview = document.getElementById('imagePreview');
-    const previewImg = document.getElementById('previewImg');
-    // Allow multiple selected images (data URLs)
-    let selectedImages = []; // { name, dataUrl }
-
-    memoryImageFile.addEventListener('change', (e) => {
-      const files = Array.from(e.target.files || []);
-      if (files.length) {
-        // Clear URL input when file(s) are selected
-        document.getElementById('memoryImageUrl').value = '';
-
-        selectedImages = [];
-        imagePreview.innerHTML = '';
-        imagePreview.style.display = 'grid';
-        imagePreview.style.gridTemplateColumns = 'repeat(auto-fit, minmax(80px, 1fr))';
-        imagePreview.style.gap = '0.5rem';
-
-        files.forEach((file) => {
-          const reader = new FileReader();
-          reader.onload = (ev) => {
-            const dataUrl = ev.target.result;
-            selectedImages.push({ name: file.name, dataUrl });
-
-            // create thumbnail
-            const thumb = document.createElement('img');
-            thumb.src = dataUrl;
-            thumb.alt = file.name;
-            thumb.style.width = '100%';
-            thumb.style.height = '80px';
-            thumb.style.objectFit = 'cover';
-            thumb.style.borderRadius = '8px';
-            imagePreview.appendChild(thumb);
-
-            // hide single previewImg (legacy) if present
-            if (previewImg) previewImg.style.display = 'none';
-          };
-          reader.readAsDataURL(file);
-        });
-      } else {
-        imagePreview.style.display = 'none';
-        selectedImages = [];
-        if (previewImg) previewImg.style.display = '';
-      }
-    });
-
-    // URL input handler - clear file when URL is entered
-    document.getElementById('memoryImageUrl').addEventListener('input', (e) => {
-      if (e.target.value.trim()) {
-        memoryImageFile.value = '';
-        imagePreview.style.display = 'none';
-        selectedImages = [];
-        if (previewImg) previewImg.style.display = '';
-      }
-    });
-
-    addMemoryForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      let imageUrl = document.getElementById('memoryImageUrl').value.trim();
-      const username = document.getElementById('memoryUsername').value.trim() || 'Swarna';
-      const caption = document.getElementById('memoryCaption').value.trim();
-
-      // If files were selected, add each image as an entry; otherwise use the imageUrl (single)
-      if (selectedImages.length) {
-        selectedImages.reverse().forEach(img => {
-          memoriesData.unshift({
-            image: img.dataUrl,
-            username: username,
-            avatar: '🎂',
-            caption: caption || ''
-          });
-        });
-      } else if (imageUrl) {
-        memoriesData.unshift({
-          image: imageUrl,
-          username: username,
-          avatar: '🎂',
-          caption: caption || ''
-        });
-      }
-      // Persist new memories
-      try { saveMemoriesToStorage(); } catch (e) { /* ignore */ }
-      // If no images were provided, do nothing
-      if (!selectedImages.length && !imageUrl) return;
-
-      // How many were added (for success message)
-      const addedCount = selectedImages.length ? selectedImages.length : (imageUrl ? 1 : 0);
-
-      // Re-render memories
-      renderMemories();
-
-      // Close modal
-      addMemoryModal.classList.remove('active');
-      setTimeout(() => {
-        addMemoryModal.style.display = 'none';
-        addMemoryForm.reset();
-        imagePreview.style.display = 'none';
-        imagePreview.innerHTML = '';
-        selectedImages = [];
-
-        // Scroll to top to see new post
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 300);
-
-      // Show success message
-      const successMsg = document.createElement('div');
-      successMsg.textContent = addedCount > 1 ? `✨ ${addedCount} memories added successfully!` : '✨ Memory added successfully!';
-      successMsg.style.cssText = `
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: var(--gradient);
-        padding: 1.5rem 2.5rem;
-        border-radius: 25px;
-        font-size: 1.2rem;
-        font-weight: bold;
-        color: #5d2e75;
-        z-index: 2000;
-        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        animation: popIn 0.5s ease-out;
-      `;
-      document.body.appendChild(successMsg);
-      setTimeout(() => {
-        successMsg.style.animation = 'popOut 0.5s ease-in forwards';
-        setTimeout(() => successMsg.remove(), 500);
-      }, 2000);
-    });
 
     // Initialize memory feed when page loads
     if (document.readyState === 'loading') {
@@ -907,38 +796,7 @@
       }
     });
 
-    // Simple upload for memories
-    document.addEventListener('DOMContentLoaded', () => {
-      const uploadForm = document.getElementById('uploadForm');
-      if (uploadForm) {
-        uploadForm.addEventListener('submit', (e) => {
-          e.preventDefault();
-          const file = document.getElementById('imageFile').files[0];
-          const caption = document.getElementById('caption').value.trim();
-          if (file) {
-            const reader = new FileReader();
-            reader.onload = (ev) => {
-              const imageUrl = ev.target.result;
-              memoriesData.unshift({
-                image: imageUrl,
-                username: 'Swarna',
-                avatar: '🎂',
-                caption: caption
-              });
-              saveMemoriesToStorage();
-              renderMemories();
-              uploadForm.reset();
-            };
-            reader.readAsDataURL(file);
-          }
-        });
-      }
-    });
 
-    // Flap toggle
-    document.querySelectorAll('.flap-card').forEach(flap => {
-      flap.addEventListener('click', () => flap.classList.toggle('open'));
-    });
 
     // Wish modal styling
     const wishModalStyle = document.createElement('style');
