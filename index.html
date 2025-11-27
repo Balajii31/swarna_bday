@@ -33,7 +33,6 @@
   <div class="confetti-splash" aria-hidden="true"></div>
   <canvas id="celebrationCanvas"></canvas>
 
-  <audio id="birthdayAudio" loop src="https://interactive-examples.mdn.mozilla.net/media/examples/t-rex-roar.mp3"></audio>
 
   <nav class="nav" role="navigation" aria-label="Main navigation">
     <button class="nav-toggle" aria-expanded="false" aria-controls="primary-navigation" aria-label="Open menu">☰</button>
@@ -64,8 +63,11 @@
       <p id="typedMessage"></p>
       <div class="button-group">
         <button class="btn" id="celebrationBtn">🎊 Confetti Mode 🎊</button>
-        <button class="btn" id="audioToggle">🎵 Play Music 🎵</button>
+        <button class="btn" id="videoToggle">🎥 Watch Us? 🎥</button>
         <button class="btn" onclick="showPage('memories')">📸 Explore Memories</button>
+      </div>
+      <div id="videoContainer" style="display:none; text-align:center; margin:2rem 0;">
+        <video id="birthdayVideo" loop src="images/birthday-video.mp4" style="width:100%; max-width:600px; border-radius:15px; box-shadow: var(--soft-shadow);"></video>
       </div>
     </header>
   </div>
@@ -311,7 +313,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       typeLoop();
-      document.getElementById('birthdayAudio').volume = 0.4;
+      document.getElementById('birthdayVideo').volume = 0.4;
       
       // Gift box interactions
       document.querySelectorAll('.gift-box').forEach((gift, index) => {
@@ -1004,16 +1006,19 @@
 
     // Guestbook removed - replaced with surprise section
 
-    // Audio control
-    const audio = document.getElementById('birthdayAudio');
-    const audioToggle = document.getElementById('audioToggle');
-    audioToggle.addEventListener('click', () => {
-      if (audio.paused) {
-        audio.play();
-        audioToggle.textContent = 'Mute Music ';
+    // Video control
+    const video = document.getElementById('birthdayVideo');
+    const videoToggle = document.getElementById('videoToggle');
+    videoToggle.addEventListener('click', () => {
+      const container = document.getElementById('videoContainer');
+      if (video.paused) {
+        video.play();
+        videoToggle.textContent = '🎥 Pause Video 🎥';
+        container.style.display = 'block';
       } else {
-        audio.pause();
-        audioToggle.textContent = 'Play Music ';
+        video.pause();
+        videoToggle.textContent = '🎥 Watch Us? 🎥';
+        container.style.display = 'none';
       }
     });
 
@@ -1049,7 +1054,7 @@
         color: `hsl(${Math.random()*360},80%,70%)`
       }));
       
-      audio.play().catch(() => {});
+      video.play().catch(() => {});
       renderConfetti();
       setTimeout(() => { 
         canvas.style.opacity = 0;
