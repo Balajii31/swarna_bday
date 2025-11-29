@@ -456,7 +456,7 @@
     // Emoji reactions for posts
     document.addEventListener('click', (e) => {
       if (e.target.classList.contains('emoji-react')) {
-        const reactions = ['😊', '😂', '🥰', '😍', '🤩', '😎', '🙌', '💖'];
+        const reactions = ['😊', '😋', '🥰', '😍', '🤩', '😎', '🙌', '💖'];
         const randomReaction = reactions[Math.floor(Math.random() * reactions.length)];
         const reactionEl = document.createElement('div');
         reactionEl.textContent = randomReaction;
@@ -729,7 +729,6 @@
            </div>
            <div class="post-actions">
              <button class="post-action-btn" title="Like">❤️</button>
-             <button class="post-action-btn" title="Comment">💬</button>
              <button class="post-action-btn emoji-react" title="React">😊</button>
            </div>
            <div class="post-caption">
@@ -972,8 +971,8 @@
     const wheelResult = document.getElementById('wheelResult');
     const wishes = [
       '🍕 New food adventure',
-      '🛍️ Shopping spree',
-      '🎬 Movie night with me',
+      '🛍️ Shopping ',
+      '🎬 Movie with me',
       '🌟 A full day planned by me',
       '🎲 Truth or dare challenge',
       '💃 Dance reel together'
